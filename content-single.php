@@ -9,7 +9,8 @@
 		<h1 class="entry-title"><?php the_title(); ?></h1>
 
 		<div class="entry-meta">
-			<?php dsframework_posted_on(); ?>
+<span><?php the_time('d M Y') ?> <a href="<?php comments_link(); ?>">comment</a> </span>
+		</div>
 		</div>
 	</header>
 
@@ -19,7 +20,7 @@
 	</div>
 
 	<footer class="entry-meta tags-list text-block">
-		<?php $tag_list = get_the_tag_list( '', ', ', '' ); ?>
-		<?php	if ( '' != $tag_list ) { echo __('Tagged: ', 'dsframework') . $tag_list; } ?>
+<?php $tag_list = get_the_tag_list( '<i class="fa fa-tags"></i>', ', ', '' ); ?>
+		<span><?php	if ( '' != $tag_list ) { echo __('', 'dsframework') . $tag_list; } ?></span>
 	</footer>
 </article>

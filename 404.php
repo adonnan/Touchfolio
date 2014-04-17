@@ -9,11 +9,11 @@
 <?php get_header(); ?>
 	<div id="primary" class="site-content">
 		<div id="content" role="main">
-			<article id="post-0" class="post error404 not-found">
+			<article id="post-0" class="post error404 not-found aligncenter">
 				<header class="entry-header">
 					<h1 class="entry-title">404</h1>
 				</header>
-				<p><?php _e('The page you were looking for cannot be found.', 'dsframework'); ?></p>
+				<p style="text-align:center"><?php _e('The page you were looking for cannot be found.', 'dsframework'); ?></p>
 			</article>
 		</div>
 	</div>

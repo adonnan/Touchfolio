@@ -49,10 +49,10 @@ jQuery(document).ready(function($) {
 			if(body.hasClass('page-template-ds-gallery-masonry-template-php')) {
 				$('.albums-thumbnails').masonry({ 
 					itemSelector : '.project-thumb', 
-					gutterWidth: 8,
+					gutterWidth: 0,
 					isResizable: true,
 					isFitWidth: true,
-					isAnimated: false
+					isAnimated: true
 				}); 
    			}
 	    },

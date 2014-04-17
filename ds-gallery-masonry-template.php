@@ -13,22 +13,36 @@
 <?php get_header(); ?>
 <div id="primary" class="site-content">
 	<div id="content" role="main">
-		<?php 
-		$gallery_cats = get_ds_option('album_cats_gallery_page');
-		if($gallery_cats) {
-			$tax_query = array(               
-		    	'relation' => 'AND',                  
-				array(
-					'taxonomy' => 'ds-gallery-category',     
-					'field' => 'slug',                
-					'terms' => preg_split("/\s*,\s*/", $gallery_cats),
-					'include_children' => true,         
-					'operator' => 'IN'                 
-				)
-		    );
-		} else {
-			$tax_query = '';
-		}
+	<?php
+
+// filter gallery by category set in page content ghetto hack adonnan
+global $wp_query; 
+global $categories_to_show; 
+$postid = $wp_query->post->ID; 
+$cnt = get_post($postid); 
+$cnt = get_object_vars($cnt); 
+$categories_to_show = $cnt['post_content']; 
+wp_reset_query(); 
+// END NEW
+
+// CHANGED LINE 
+$gallery_cats = $categories_to_show; 
+// END CHANGED LINE
+
+if($gallery_cats) { 
+$tax_query = array( 
+'relation' => 'AND', 
+array( 
+'taxonomy' => 'ds-gallery-category', 
+'field' => 'slug', 
+'terms' => preg_split("/\s*,\s*/", $gallery_cats), 
+'include_children' => true, 
+'operator' => 'IN' 
+) 
+); 
+} else { 
+$tax_query = ''; 
+} 
 		$loop = new WP_Query( array( 
 			'post_type' => 'ds-gallery', 
 			'posts_per_page' => -1,

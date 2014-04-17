@@ -11,11 +11,12 @@ get_header(); ?>
 			<div id="content" role="main">
 			<?php if ( have_posts() ) : ?>
 				<header class="page-header">
-					<h1 class="page-title"><?php printf( __( 'Search Results for: %s', 'dsframework' ), '<span>' . get_search_query() . '</span>' ); ?></h1>
+					<h1 class="page-title"><?php printf( __( '<i class="fa fa-search"></i> %s', 'dsframework' ), '<span>' . get_search_query() . '</span>' ); ?></h1>
 				</header>
 				<?php dsframework_content_nav( 'nav-above' ); ?>
 				<?php while ( have_posts() ) : the_post(); ?>
-					<?php get_template_part( 'content', 'search' ); ?>
+<h1 class="entry-title"><a href="<?php the_permalink(); ?>" title="<?php printf( esc_attr__( 'Permalink to %s', 'dsframework' ), the_title_attribute( 'echo=0' ) ); ?>" rel="bookmark"><?php the_title(); ?></a></h1>					
+<?php get_template_part( 'content', 'search' ); ?>
 				<?php endwhile; ?>
 				<?php dsframework_content_nav( 'nav-below' ); ?>
 			<?php else : ?>

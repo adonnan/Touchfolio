@@ -6,12 +6,9 @@
  * @since dsframework 1.0
  */
 
-
 define( 'USE_LESS_CSS', true );
 define( 'DS_THEME_PATH', get_template_directory_uri() );
 define( 'DS_THEME_DIR', TEMPLATEPATH );
-
-
 
 // Add single class to body for gallery pages
 add_filter('body_class','my_class_names');
@@ -63,11 +60,6 @@ if ( ! function_exists( 'ds_get_og_image' ) ) {
 	}
 }
 
-
-
-
-
-
 /*-----------------------------------------------------------------------------------*/
 // Options Framework
 /*-----------------------------------------------------------------------------------*/
@@ -88,7 +80,6 @@ require_once (ADMIN_PATH . 'theme-options.php');
 require_once (ADMIN_PATH . 'admin-functions.php'); 
 require_once (ADMIN_PATH . 'medialibrary-uploader.php'); 
 
-
 global $data;
 function get_ds_option($opt_name) {
 	global $data;
@@ -108,7 +99,6 @@ if(USE_LESS_CSS) {
 
 // Admin gallery management
 include_once(get_template_directory() . '/inc/gallery-manage.php');
-
 
 
 if ( ! function_exists( 'dsframework_setup' ) ):
@@ -150,7 +140,7 @@ function dsframework_setup() {
 	 * Enable support for Post Thumbnails
 	 */
 	add_theme_support( 'post-thumbnails', array('ds-gallery') );
-	add_image_size( 'gallery-thumb', 304, 5000 ); // for masonry portfolio
+	add_image_size( 'gallery-thumb', 304, 5000 ); // for masonry layout
 
 	/**
 	 * This theme uses wp_nav_menu() in one location.
@@ -207,8 +197,8 @@ function dsframework_scripts() {
 			wp_enqueue_script( 'jquery.two-dimensional-slider', DS_THEME_PATH . '/js/jquery.slider-pack.1.1.min.js' );
 
 			wp_localize_script( 'jquery.two-dimensional-slider', 'tdSliderVars', array(
-							'nextAlbum' => __('Next project', 'dsframework'),
-							'prevAlbum' => __('Prev project', 'dsframework'),
+							'nextAlbum' => __('Next gallery', 'dsframework'),
+							'prevAlbum' => __('Prev gallery', 'dsframework'),
 							'closeProjectInfo' => __('close info', 'dsframework'),
 							'holdAndDrag' => __('Click and drag in any direction to browse.', 'dsframework'),
 							'nextImage' => __('Next image', 'dsframework'),
@@ -235,23 +225,6 @@ function dsframework_scripts() {
 	
 }
 add_action( 'wp', 'dsframework_scripts' );
-
-
-
-
-// custom excerpt length
-function new_excerpt_length($length) {
-	return 35; 
-}
-add_filter('excerpt_length', 'new_excerpt_length');
-
-// custom escerpt more
-function new_excerpt_more($more) {
-	return ' ...';
-}
-add_filter('excerpt_more', 'new_excerpt_more');
-
-
 
 // admin pages styles and scripts
 function dsframework_admin_scripts_and_styles() {
@@ -288,5 +261,83 @@ function dsframework_add_admin_scripts( $hook ) {
     dsframework_admin_scripts_and_styles();
 }
 add_action( 'admin_enqueue_scripts', 'dsframework_add_admin_scripts', 10, 1 );
+
+/*-----------------------------------------------------------------------------------*/
+// Start Adonnan
+/*-----------------------------------------------------------------------------------*/
+
+// custom excerpt length
+function new_excerpt_length($length) {
+	return 35; 
+}
+add_filter('excerpt_length', 'new_excerpt_length');
+
+// custom excerpt link
+function new_excerpt_more($more) {
+       global $post;
+	return '<a class="moretag" href="'. get_permalink($post->ID) . '"><i class="fa fa-plus"></i></a>';
+}
+add_filter('excerpt_more', 'new_excerpt_more');
+
+// Remove inline WordPress styles added with the gallery shortcode
+add_filter( 'use_default_gallery_style', '__return_false' );
+
+// gallery shortcode defaults
+function amethyst_gallery_atts( $out, $pairs, $atts ) {
+   
+    $atts = shortcode_atts( array(
+        'columns' => '1',
+        'size' => 'large',
+        
+         ), $atts );
+
+    $out['columns'] = $atts['columns'];
+    $out['size'] = $atts['size'];
+
+    return $out;
+}
+add_filter( 'shortcode_atts_gallery', 'amethyst_gallery_atts', 10, 3 );
+
+// Register Theme Features
+function custom_theme_features()  {
+
+	// Add theme support for Featured Images
+	add_theme_support( 'post-thumbnails' );	
+}
+
+// Hook into the 'after_setup_theme' action
+add_action( 'after_setup_theme', 'custom_theme_features' );
+
+	// select the mime type, here: 'application/pdf'
+	// then we define an array with the label values
+function modify_post_mime_types( $post_mime_types ) {
+	$post_mime_types['application/pdf'] = array( __( 'PDFs' ), __( 'Manage PDFs' ), _n_noop( 'PDF <span class="count">(%s)</span>', 'PDFs <span class="count">(%s)</span>' ) );
+	return $post_mime_types;
+}
+// Add Filter Hook
+add_filter( 'post_mime_types', 'modify_post_mime_types' );
+
+add_action( 'wp_enqueue_scripts', 'webendev_load_font_awesome', 99 );
+/**
+* Enqueue Font Awesome Stylesheet from MaxCDN
+*
+*/
+function webendev_load_font_awesome() {
+	if ( ! is_admin() ) {
+ 
+		wp_enqueue_style( 'font-awesome', '//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.css', null, '4.0.1' );
+ 
+	}
+ 
+}
+/* query strings are they necessary 
+function _remove_script_version( $src ){
+    $parts = explode( '?ver', $src );
+        return $parts[0];
+}
+add_filter( 'script_loader_src', '_remove_script_version', 15, 1 );
+add_filter( 'style_loader_src', '_remove_script_version', 15, 1 );
+*/
+ /* ------------------- end adonnan -------------------- */
 
 ?>

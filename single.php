@@ -18,6 +18,7 @@ get_header(); ?>
 						comments_template( '', true );
 				?>
 			<?php endwhile; ?>
+					
 			</div>
 		</div>
 <?php get_sidebar(); ?>

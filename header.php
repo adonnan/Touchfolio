@@ -3,20 +3,20 @@
 <head>
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta name="viewport" content="width = device-width, initial-scale = 1.0, minimum-scale = 1.0" />
-	<title><?php
-		global $page, $paged;
-		wp_title( '|', true, 'right' );
-		bloginfo( 'name' );
-		$site_description = get_bloginfo( 'description', 'display' );
-		if ( $site_description && ( is_home() || is_front_page() ) )
-			echo " | $site_description";
-		if ( $paged >= 2 || $page >= 2 )
-			echo ' | ' . sprintf( __( 'Page %s', 'ds-framework' ), max( $paged, $page ) );
-	?></title>
+        <title><?php
+                global $page, $paged;
+                wp_title( '|', true, 'right' );
+                bloginfo( 'name' );
+                $site_description = get_bloginfo( 'description', 'display' );
+                if ( $site_description && ( is_home() || is_front_page() ) )
+                        echo " | $site_description";
+                if ( $paged >= 2 || $page >= 2 )
+                        echo ' | ' . sprintf( __( 'Page %s', 'ds-framework' ), max( $paged, $page ) );
+        ?></title>
 	<?php if(get_ds_option('custom_favicon')) { ?>
 	<link rel="shortcut icon" href="<?php echo get_ds_option('custom_favicon'); ?>" /> 
 	<?php } ?>
-	<?php // Facebook stuff ?>
+		<?php // Facebook stuff ?>
 	<?php if(get_ds_option('fb_admin_id')) { ?>
 	<meta property="fb:admins" content="<?php echo get_ds_option('fb_admin_id'); ?>" />
 	<?php } ?>
@@ -42,6 +42,7 @@
 	<![endif]-->
 <?php wp_head(); ?>
 </head>
+
 <body <?php body_class(); ?> style="">
 <div id="main-wrap">
 <div id="page" class="hfeed site">

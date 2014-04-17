@@ -50,7 +50,7 @@ html, body {
 }
 .main-header {
 	margin-left: -@sidebar-width-full;
-	position: relative;
+	position: fixed;
 	width: @sidebar-width-full - 4;
 	padding: 0 2em;
 	float: left;
@@ -190,6 +190,7 @@ a.menu-button {
 	font-size: 16px;
 	line-height: 32px;
 	padding-left: .5em;
+	float: right;
 
 	select {
 		max-width: 70px;
@@ -298,7 +299,8 @@ a.menu-button {
 		//border: 0;
 	}
 	input {
-		padding: 0;
+		padding: 5px 0;
+		width: 90%;
 	}
 }
 
@@ -312,12 +314,15 @@ a.menu-button {
 ////////////////////////////////////////////
 .footer-copy {
 	height: @footer-max-height;
+	position: relative;
 	overflow: hidden;
 	width: 100%;
+	clear: both;
 	background: @sidebar-background;
 	p {
 		padding: 1.5 * @font-small-em-size 2 * @font-small-em-size;
-		max-width: 40 * @font-small-em-size;
+		max-width: 768px;
+		text-align: center;
 		margin: 0;
 		font-size: @font-small;
 		line-height: @font-small-line-height;
@@ -387,8 +392,10 @@ a.menu-button {
 		font-weight: bold;
 		width: 100%;
 		display: block;
+		position: absolute;
 		text-align: left;
-		margin: .8em 0 .5em;
+		margin-top: -40px;
+		margin-left: 20px;
 	}
 	a.project-thumb {
 		display: block;
@@ -434,7 +441,7 @@ a.menu-button {
 
 .search-results {
 	h1.entry-title {
-		font-size: 1.25em;
+		font-size: 2.55em;
 		margin: 1.1em 0 0.5em;
 	}
 	.hentry {
@@ -444,7 +451,7 @@ a.menu-button {
 		margin-bottom: 3em;
 	}
 	.page-title {
-		font-size: 2em;
+		font-size: 2.55em;
 	}
 }
 
@@ -480,6 +487,11 @@ a.menu-button {
 		top: 0;
 		right: 0;
 		bottom: 0;
+	}
+	p {
+		img {
+			max-width: 100%;
+		}
 	}
 	p {
 		img {
