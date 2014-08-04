@@ -7,11 +7,11 @@
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 	<header class="entry-header">
 		<h1 class="entry-title"><?php the_title(); ?></h1>
-
 		<div class="entry-meta">
-<span><?php the_time('d M Y') ?> <a href="<?php comments_link(); ?>">comment</a> </span>
-		</div>
-		</div>
+			<span>
+			<?php the_time('d M y') ?>
+			</span>
+		</div>	
 	</header>
 
 	<div class="entry-content">
@@ -20,7 +20,8 @@
 	</div>
 
 	<footer class="entry-meta tags-list text-block">
-<?php $tag_list = get_the_tag_list( '<i class="fa fa-tags"></i>', ', ', '' ); ?>
-		<span><?php	if ( '' != $tag_list ) { echo __('', 'dsframework') . $tag_list; } ?></span>
+		<?php $tag_list = get_the_tag_list( '', ', ', '' ); ?>
+		<?php	if ( '' != $tag_list ) { echo __('<span class="fa fa-tags">&nbsp;', 'dsframework') . $tag_list; } ?>
+		<br/><br/><i class="fa fa-wordpress"></i> <?php the_author_link(); ?> / <a class="" href="<?php the_permalink(); ?>"><?php the_time('d M Y') ?> / <?php the_category(', '); ?></a>
 	</footer>
 </article>

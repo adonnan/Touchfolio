@@ -15,8 +15,7 @@ get_header(); ?>
 				</header>
 				<?php dsframework_content_nav( 'nav-above' ); ?>
 				<?php while ( have_posts() ) : the_post(); ?>
-<h1 class="entry-title"><a href="<?php the_permalink(); ?>" title="<?php printf( esc_attr__( 'Permalink to %s', 'dsframework' ), the_title_attribute( 'echo=0' ) ); ?>" rel="bookmark"><?php the_title(); ?></a></h1>					
-<?php get_template_part( 'content', 'search' ); ?>
+					<?php get_template_part( 'content', 'search' ); ?>
 				<?php endwhile; ?>
 				<?php dsframework_content_nav( 'nav-below' ); ?>
 			<?php else : ?>
